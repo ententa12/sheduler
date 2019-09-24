@@ -6,7 +6,7 @@ namespace Sheduler
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ConfigureService.Configure();
         }
     }
 }
