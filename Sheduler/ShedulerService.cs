@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Sheduler.EmailReader;
+using Sheduler.Model;
+using Sheduler.Sheduler;
+using System;
+using System.Linq;
 
 namespace Sheduler
 {
@@ -8,7 +10,7 @@ namespace Sheduler
     {
         public void Start()
         {
-            // write code here that runs when the Windows Service starts up.  
+            SchedulerLogic.SendEmails().GetAwaiter().GetResult();
         }
         public void Stop()
         {

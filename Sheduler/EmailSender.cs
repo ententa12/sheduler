@@ -9,7 +9,7 @@ using GemBox.Email.Smtp;
 namespace Sheduler
 {
     public static class EmailSender
-    { 
+    {
 
         const string Host = "smtp.gmail.com";
         const string Username = "scheduler.ztp";
@@ -23,10 +23,10 @@ namespace Sheduler
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
-            var mailingList = new List<string>()
-        {
-            "jadwiga.jasek95@gmail.com"
-        };
+            var mailingList = new List<string>() {
+                "jadwiga.jasek95@gmail.com",
+                "ententa12@gmail.com"
+            };
 
             int chunkSize = 80;
 
