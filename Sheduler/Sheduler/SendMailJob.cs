@@ -10,7 +10,13 @@ namespace Sheduler.Sheduler
     {
         public async Task Execute(IJobExecutionContext context)
         {
-            await Console.Out.WriteLineAsync("Greetings from HelloJob!");
+            //await Console.Out.WriteLineAsync("Greetings from HelloJob!");
+            await new Task(new Action(() =>
+            {
+                EmailSender.SendEmail();
+                Console.Out.WriteLine("Greetings from HelloJob!");
+            }
+            ));
         }
     }
 }

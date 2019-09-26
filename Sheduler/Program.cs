@@ -12,7 +12,7 @@ namespace Sheduler
     {
         static void Main(string[] args)
         { 
-            EmailSender.SendEmail();
+            //EmailSender.SendEmail();
             ConfigureService.Configure();
             Console.ReadKey();
         }
