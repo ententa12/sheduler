@@ -18,13 +18,12 @@ namespace Sheduler
 
         static int SentEmailCounter = 0;
 
-        public static void SendEmail()
+        public async static Task SendEmail()
         {
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             var mailingList = new List<string>() {
-                "jadwiga.jasek95@gmail.com",
                 "ententa12@gmail.com"
             };
 
@@ -39,13 +38,8 @@ namespace Sheduler
 
             // Create a Task that will complete when emails were sent to all the "mailingList".
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
-
+            await sendBuilkEmails;
             // Displaying the progress of bulk email sending.
-            while (!sendBuilkEmails.IsCompleted)
-            {
-                Console.WriteLine($"{SentEmailCounter,5} emails have been sent!");
-                Task.Delay(1000).Wait();
-            }
         }
 
         static void SendEmails(IEnumerable<string> recipients)
@@ -59,7 +53,7 @@ namespace Sheduler
                 {
                     MailMessage message = new MailMessage(Sender, recipient)
                     {
-                        Subject = "New Blog Post",
+                        Subject = "New NEW",
                         BodyText = "Dear reader,\n" +
                             "We have released a new blog post.\n" +
                             "You can find it on: https://www.gemboxsoftware.com/company/blog"
