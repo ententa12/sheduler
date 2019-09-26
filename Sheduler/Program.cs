@@ -14,9 +14,7 @@ namespace Sheduler
     {
         static void Main(string[] args)
         {
-            //CsvEmailReader<EmailPerson>.ReadCsv().ForEach(p => );
             ConfigureService.Configure();
-            Console.ReadKey();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GemBox.Email;
 using GemBox.Email.Smtp;
+using NLog;
 
 namespace Sheduler
 {
@@ -15,11 +16,11 @@ namespace Sheduler
         const string Username = "scheduler.ztp";
         const string Password = "ZAQ!2wsx";
         const string Sender = "scheduler.ztp@gmail.com";
-
         static int SentEmailCounter = 0;
 
         public async static Task SendEmail()
         {
+            Logger logger = LogManager.GetLogger("fileLogger");
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
@@ -38,6 +39,7 @@ namespace Sheduler
 
             // Create a Task that will complete when emails were sent to all the "mailingList".
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
+            logger.Info("Email was sended to: " + mailingList[0]);
             await sendBuilkEmails;
             // Displaying the progress of bulk email sending.
         }

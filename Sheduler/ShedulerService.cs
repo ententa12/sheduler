@@ -1,4 +1,5 @@
-﻿using Sheduler.EmailReader;
+﻿using NLog;
+using Sheduler.EmailReader;
 using Sheduler.Model;
 using Sheduler.Sheduler;
 using System;
@@ -10,6 +11,8 @@ namespace Sheduler
     {
         public void Start()
         {
+            Logger logger = LogManager.GetLogger("fileLogger");
+            logger.Info("Start Scheduler");
             SchedulerLogic.SendEmails().GetAwaiter().GetResult();
         }
         public void Stop()
