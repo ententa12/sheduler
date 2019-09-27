@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sheduler.Model
 {
-    class EmailPerson
+    public class EmailPerson
     {
         public int Id { get; set; }
         public string Email { get; set; }
