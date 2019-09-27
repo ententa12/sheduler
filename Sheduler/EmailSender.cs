@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GemBox.Email;
 using GemBox.Email.Smtp;
+using Sheduler.Model;
 
 namespace Sheduler
 {
@@ -18,24 +19,17 @@ namespace Sheduler
 
         static int SentEmailCounter = 0;
 
-        public static void SendEmail()
+        public static void SendEmail(EmailPerson emailPerson)
         {
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
-            var mailingList = new List<string>() {
-                "jadwiga.jasek95@gmail.com",
-                "ententa12@gmail.com"
-            };
-
-            int chunkSize = 80;
-
-            // Split "mailingList" to multiple lists of "chunkSize" size.
-            var mailingChunks = SplitMany(mailingList, chunkSize);
+            var mailingList = 
+                emailPerson.Email;
+            
 
             // Process each "mailingChunks" chunk as a separate Task.
-            IEnumerable<Task> sendMailingChunks = mailingChunks.Select(
-                mailingChunk => Task.Run(() => SendEmails(mailingChunk)));
+            Task sendMailingChunks = Task.Run(() => SendEmails(mailingList, emailPerson));
 
             // Create a Task that will complete when emails were sent to all the "mailingList".
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
@@ -48,26 +42,23 @@ namespace Sheduler
             }
         }
 
-        static void SendEmails(IEnumerable<string> recipients)
+        static void SendEmails(string recipients, EmailPerson emailPerson)
         {
             using (var smtp = new SmtpClient(Host))
             {
                 smtp.Connect();
                 smtp.Authenticate(Username, Password);
 
-                foreach (var recipient in recipients)
-                {
-                    MailMessage message = new MailMessage(Sender, recipient)
+                    MailMessage message = new MailMessage(Sender, recipients)
                     {
-                        Subject = "New Blog Post",
-                        BodyText = "Dear reader,\n" +
-                            "We have released a new blog post.\n" +
-                            "You can find it on: https://www.gemboxsoftware.com/company/blog"
+                        Subject = emailPerson.Title,
+                        BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
+                        + "\n"+ emailPerson.Message
                     };
 
                     smtp.SendMessage(message);
                     Interlocked.Increment(ref SentEmailCounter);
-                }
+               
             }
         }
 

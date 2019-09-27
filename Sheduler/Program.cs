@@ -1,4 +1,6 @@
 ﻿using NLog;
+using Sheduler.EmailReader;
+using Sheduler.Model;
 using System;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
@@ -9,8 +11,8 @@ namespace Sheduler
     {
         static void Main(string[] args)
         {
-            //EmailSender.SendEmail();
-            //ConfigureService.Configure();
+            CsvEmailReader<EmailPerson>.ReadCsv().ForEach(p => EmailSender.SendEmail(p));
+           // ConfigureService.Configure();
 
             try
             {

@@ -13,7 +13,7 @@ namespace Sheduler.Sheduler
             //await Console.Out.WriteLineAsync("Greetings from HelloJob!");
             await new Task(new Action(() =>
             {
-                EmailSender.SendEmail();
+               // EmailSender.SendEmail();
                 Console.Out.WriteLine("Greetings from HelloJob!");
             }
             ));
