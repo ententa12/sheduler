@@ -18,7 +18,6 @@ namespace Sheduler
                     service.WhenStarted(s => s.Start());
                     service.WhenStopped(s => s.Stop());
                 });
-                //Setup Account that window service use to run.  
                 configure.RunAsLocalSystem();
                 configure.UseNLog();
                 configure.SetServiceName("Sheduler");

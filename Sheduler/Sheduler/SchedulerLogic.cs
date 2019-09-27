@@ -1,9 +1,12 @@
 ﻿using NLog;
 using Quartz;
 using Quartz.Impl;
+using Sheduler.EmailReader;
+using Sheduler.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,10 +15,10 @@ namespace Sheduler.Sheduler
 {
     class SchedulerLogic
     {
+        static Logger logger = LogManager.GetLogger("fileLogger");
         public static async Task SendEmails()
         {
-            Logger logger = LogManager.GetLogger("fileLogger");
-            
+            var emails = CsvEmailReader<EmailPerson>.ReadCsv();
             try
             {
                 // Grab the Scheduler instance from the Factory
@@ -50,6 +53,47 @@ namespace Sheduler.Sheduler
             {
                 logger.Error(se);
             }
+        }
+
+        public static async Task SendEmails2()
+        {
+            var emails = CsvEmailReader<EmailPerson>.ReadCsv();
+            try
+            {
+                StdSchedulerFactory factory = new StdSchedulerFactory();
+                IScheduler scheduler = await factory.GetScheduler();
+                await scheduler.Start();
+    //            emails.ForEach(email =>
+    //            {
+    //                ITrigger trigger = TriggerBuilder.Create()
+    //.WithIdentity("trigger1")
+    //.StartNow()
+    //.WithSimpleSchedule(x => x
+    //    .WithIntervalInSeconds(1))
+    //.Build();
+    //                await scheduler.ScheduleJob(CreateJobWithMail(email), trigger);
+    //            });
+                var mailTasks = emails.Select(mail => scheduler.ScheduleJob(CreateJobWithMail(mail), TriggerBuilder.Create()
+                    .WithIdentity(Guid.NewGuid().ToString())
+                    .StartNow()
+                    .WithSimpleSchedule()
+                    .Build()));
+                await Task.WhenAll(mailTasks);
+                //await scheduler.ScheduleJob(trigger);
+            }
+            catch (SchedulerException se)
+            {
+                logger.Error(se);
+            }
+        }
+
+        static IJobDetail CreateJobWithMail(EmailPerson emailBody)
+        {
+            logger.Info("In Job");
+            return JobBuilder.Create<SendMailJob>()
+                    .WithIdentity(Guid.NewGuid().ToString())
+                    .SetJobData(new JobDataMap(new Dictionary<String, EmailPerson>() { { "Mail", emailBody } }))
+                    .Build();
         }
     }
 }

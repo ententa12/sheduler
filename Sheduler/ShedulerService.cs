@@ -12,12 +12,12 @@ namespace Sheduler
         public void Start()
         {
             Logger logger = LogManager.GetLogger("fileLogger");
-            logger.Info("Start Scheduler");
-            SchedulerLogic.SendEmails().GetAwaiter().GetResult();
+            logger.Info("Start was Scheduler");
+            SchedulerLogic.SendEmails2().GetAwaiter().GetResult();
         }
         public void Stop()
         {
-            // write code here that runs when the Windows Service stops.  
+            LoggerUtils.logger.Info("Scheduler was stopped");
         }
     }
 }

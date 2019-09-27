@@ -1,7 +1,5 @@
 ﻿using Quartz;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Sheduler.Model;
 using System.Threading.Tasks;
 
 namespace Sheduler.Sheduler
@@ -10,7 +8,10 @@ namespace Sheduler.Sheduler
     {
         public async Task Execute(IJobExecutionContext context)
         {
-            await EmailSender.SendEmail();
+            var emailBody = (EmailPerson)context.JobDetail.JobDataMap.Get("Mail");
+            LoggerUtils.logger.Info("Start sending mail - id: " + emailBody.Id);
+            await EmailSender.SendEmail(emailBody);
+            LoggerUtils.logger.Info("Stop sending mail - id: " + emailBody.Id);
         }
     }
 }
