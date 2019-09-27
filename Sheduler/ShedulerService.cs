@@ -1,6 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using NLog;
+using Sheduler.EmailReader;
+using Sheduler.Model;
+using Sheduler.Sheduler;
+using System;
+using System.Linq;
 
 namespace Sheduler
 {
@@ -8,11 +11,13 @@ namespace Sheduler
     {
         public void Start()
         {
-            // write code here that runs when the Windows Service starts up.  
+            Logger logger = LogManager.GetLogger("fileLogger");
+            logger.Info("Start was Scheduler");
+            SchedulerLogic.SendEmails2().GetAwaiter().GetResult();
         }
         public void Stop()
         {
-            // write code here that runs when the Windows Service stops.  
+            LoggerUtils.logger.Info("Scheduler was stopped");
         }
     }
 }
