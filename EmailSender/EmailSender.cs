@@ -5,10 +5,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EmailSender
+namespace EmailSenderLogic
 {
     public class EmailSender
     {
+        public EmailSender()
+        {
+        }
 
         const string Host = "smtp.gmail.com";
         const string Username = "scheduler.ztp";
