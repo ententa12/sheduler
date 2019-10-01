@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheduler", "Sheduler\Sheduler.csproj", "{6237354D-4FAA-4EFF-B161-14CB9F800E83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartUp", "Sheduler\StartUp.csproj", "{6237354D-4FAA-4EFF-B161-14CB9F800E83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVReaderInterface", "CSVReaderInterface\CSVReaderInterface.csproj", "{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVReaderLogic", "CSVReaderLogic\CSVReaderLogic.csproj", "{13329E93-4412-4A0E-A17D-117431E57115}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVEmailModel", "CSVEmailModel\CSVEmailModel.csproj", "{408078EA-200C-45F9-BD1D-E6A88154EA0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerLogic", "SchedulerLogic\SchedulerLogic.csproj", "{D5473922-3872-4B3A-8883-435976FAB0CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService", "WindowsService\WindowsService.csproj", "{2A1550F5-CE65-4EE4-956B-2F260D24534F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{C6FCD362-40C4-4975-8351-83E4FFBDCECC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +29,34 @@ Global
 		{6237354D-4FAA-4EFF-B161-14CB9F800E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6237354D-4FAA-4EFF-B161-14CB9F800E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6237354D-4FAA-4EFF-B161-14CB9F800E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13329E93-4412-4A0E-A17D-117431E57115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13329E93-4412-4A0E-A17D-117431E57115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13329E93-4412-4A0E-A17D-117431E57115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13329E93-4412-4A0E-A17D-117431E57115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408078EA-200C-45F9-BD1D-E6A88154EA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408078EA-200C-45F9-BD1D-E6A88154EA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408078EA-200C-45F9-BD1D-E6A88154EA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408078EA-200C-45F9-BD1D-E6A88154EA0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5473922-3872-4B3A-8883-435976FAB0CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5473922-3872-4B3A-8883-435976FAB0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5473922-3872-4B3A-8883-435976FAB0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5473922-3872-4B3A-8883-435976FAB0CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A1550F5-CE65-4EE4-956B-2F260D24534F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A1550F5-CE65-4EE4-956B-2F260D24534F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A1550F5-CE65-4EE4-956B-2F260D24534F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A1550F5-CE65-4EE4-956B-2F260D24534F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

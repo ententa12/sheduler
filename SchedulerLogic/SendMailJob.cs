@@ -1,17 +1,18 @@
-﻿using Quartz;
-using Sheduler.Model;
+﻿using CSVEmailModel;
+using Quartz;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Sheduler.Sheduler
+namespace SchedulerLogic
 {
     class SendMailJob : IJob
     {
         public async Task Execute(IJobExecutionContext context)
         {
             var emailBody = (EmailPerson)context.JobDetail.JobDataMap.Get("Mail");
-            LoggerUtils.logger.Info("Start sending mail - id: " + emailBody.Id);
             await EmailSender.SendEmail(emailBody);
-            LoggerUtils.logger.Info("Stop sending mail - id: " + emailBody.Id);
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using CSVEmailModel;
 using GemBox.Email;
 using GemBox.Email.Smtp;
-using Sheduler.Model;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Sheduler
+namespace EmailSender
 {
-    public static class EmailSender
+    public class EmailSender
     {
 
         const string Host = "smtp.gmail.com";
@@ -17,19 +17,19 @@ namespace Sheduler
 
         static int SentEmailCounter = 0;
 
-        public static async Task SendEmail(EmailPerson emailPerson)
+        public async Task SendEmail(EmailPerson emailPerson)
         {
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             var mail = emailPerson.Email;
-            
+
             Task sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
-            
+
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
             await sendBuilkEmails;
         }
 
-        static void SendEmails(string recipients, EmailPerson emailPerson)
+        void SendEmails(string recipients, EmailPerson emailPerson)
         {
             try
             {
@@ -50,11 +50,11 @@ namespace Sheduler
                     Interlocked.Increment(ref SentEmailCounter);
 
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                LoggerUtils.logger.Error(ex);
+                //LoggerUtils.logger.Error(ex);
             }
         }
     }
 }
-
