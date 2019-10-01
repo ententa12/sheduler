@@ -1,7 +1,4 @@
 ﻿using SchedulerLogic;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WindowsService
 {
@@ -11,6 +8,7 @@ namespace WindowsService
         {
             new SchedulerSendMail().SendEmails().GetAwaiter().GetResult();
         }
+
         public void Stop()
         {
         }

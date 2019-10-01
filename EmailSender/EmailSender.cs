@@ -1,9 +1,9 @@
-﻿using CSVEmailModel;
-using GemBox.Email;
-using GemBox.Email.Smtp;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CSVEmailModel;
+using GemBox.Email;
+using GemBox.Email.Smtp;
 
 namespace EmailSenderLogic
 {
@@ -46,12 +46,11 @@ namespace EmailSenderLogic
                     {
                         Subject = emailPerson.Title,
                         BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
-                        + "\n" + emailPerson.Message
+                                   + "\n" + emailPerson.Message
                     };
 
                     smtp.SendMessage(message);
                     Interlocked.Increment(ref SentEmailCounter);
-
                 }
             }
             catch (Exception ex)

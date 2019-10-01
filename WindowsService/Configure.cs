@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Topshelf;
+﻿using Topshelf;
 
 namespace WindowsService
 {
@@ -10,7 +7,8 @@ namespace WindowsService
         public void ConfigureService()
         {
             HostFactory
-                .Run(configure => {
+                .Run(configure =>
+                {
                     configure.Service<ShedulerService>(service =>
                     {
                         service.ConstructUsing(s => new ShedulerService());

@@ -1,8 +1,8 @@
-﻿using CsvHelper;
-using CSVReaderInterface;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CsvHelper;
+using CSVReaderInterface;
 
 namespace CSVReaderLogic
 {
