@@ -4,16 +4,17 @@ using GemBox.Email.Smtp;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace EmailSender
 {
     public class EmailSender
     {
 
-        const string Host = "smtp.gmail.com";
-        const string Username = "scheduler.ztp";
-        const string Password = "ZAQ!2wsx";
-        const string Sender = "scheduler.ztp@gmail.com";
+         string Host = ConfigurationSettings.AppSettings["host"];
+         string Username = ConfigurationSettings.AppSettings["username"];
+         string Password = ConfigurationSettings.AppSettings["password"];
+         string Sender = ConfigurationSettings.AppSettings["sender"];
 
         static int SentEmailCounter = 0;
 
