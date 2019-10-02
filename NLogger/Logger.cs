@@ -1,8 +1,8 @@
 ﻿using NLog;
 
-namespace Logger
+namespace NLogger
 {
-    public class LoggerP
+    public class Logger
     {
         public ILogger GetLogger()
         {
