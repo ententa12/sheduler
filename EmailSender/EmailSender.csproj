@@ -1,16 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+        <AssemblyName>EmailSenderLogic</AssemblyName>
+        <RootNamespace>EmailSenderLogic</RootNamespace>
+    </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="GemBox.Email" Version="13.0.0.1042" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
+    </ItemGroup>
 
 </Project>

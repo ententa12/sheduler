@@ -1,9 +1,7 @@
-﻿using CSVEmailModel;
+﻿using System.Threading.Tasks;
+using CSVEmailModel;
+using EmailSenderLogic;
 using Quartz;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchedulerLogic
 {
@@ -11,8 +9,8 @@ namespace SchedulerLogic
     {
         public async Task Execute(IJobExecutionContext context)
         {
-            var emailBody = (EmailPerson)context.JobDetail.JobDataMap.Get("Mail");
-            await EmailSender.SendEmail(emailBody);
+            var emailBody = (EmailPerson) context.JobDetail.JobDataMap.Get("Mail");
+            await new EmailSender().SendEmail(emailBody);
         }
     }
 }

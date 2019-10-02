@@ -1,15 +1,15 @@
-﻿using CSVEmailModel;
-using GemBox.Email;
-using GemBox.Email.Smtp;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace EmailSender
+namespace EmailSenderLogic
 {
     public class EmailSender
     {
+        public EmailSender()
+        {
+        }
 
          string Host = ConfigurationSettings.AppSettings["host"];
          string Username = ConfigurationSettings.AppSettings["username"];
@@ -44,12 +44,11 @@ namespace EmailSender
                     {
                         Subject = emailPerson.Title,
                         BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
-                        + "\n" + emailPerson.Message
+                                   + "\n" + emailPerson.Message
                     };
 
                     smtp.SendMessage(message);
                     Interlocked.Increment(ref SentEmailCounter);
-
                 }
             }
             catch (Exception ex)

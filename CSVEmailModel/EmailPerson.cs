@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CSVEmailModel
+﻿namespace CSVEmailModel
 {
     public class EmailPerson
     {
@@ -15,7 +11,8 @@ namespace CSVEmailModel
 
         override public string ToString()
         {
-            return "ID: " + Id + " First Name: " + FirstName + " Last Name: " + LastName + " Title: " + Title + " Message: " + Message;
+            return "ID: " + Id + " First Name: " + FirstName + " Last Name: " + LastName + " Title: " + Title +
+                   " Message: " + Message;
         }
     }
 }
