@@ -13,6 +13,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
+        <ProjectReference Include="..\NLogger\NLogger.csproj" />
     </ItemGroup>
 
 </Project>

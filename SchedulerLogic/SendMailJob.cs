@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using CSVReaderLogic;
+using EmailSenderLogic;
 using Quartz;
 
 namespace SchedulerLogic
@@ -15,7 +16,7 @@ namespace SchedulerLogic
             var emails = new CsvEmailReader<EmailPerson>()
                 .ReadCsv("C:\\csv\\EmailList.csv", 100, emailBody * 100);
             emails.ForEach(p => Console.WriteLine(p.ToString()));
-//            await new EmailSender().SendEmail(emailBody);
+            await new EmailSender().SendEmail(emails[0]);
         }
     }
 }

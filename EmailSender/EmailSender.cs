@@ -1,25 +1,35 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CSVEmailModel;
+using GemBox.Email;
+using GemBox.Email.Smtp;
+using Logger = NLogger.Logger;
+using NLog;
 using System.Configuration;
 
 namespace EmailSenderLogic
 {
     public class EmailSender
     {
+        ILogger _logger;
+
         public EmailSender()
         {
+            _logger = new Logger().GetLogger();
         }
 
-         string Host = ConfigurationSettings.AppSettings["host"];
-         string Username = ConfigurationSettings.AppSettings["username"];
-         string Password = ConfigurationSettings.AppSettings["password"];
-         string Sender = ConfigurationSettings.AppSettings["sender"];
+        string Host = ConfigurationManager.AppSettings["host"];
+        string Username = ConfigurationManager.AppSettings["username"];
+        string Password = ConfigurationManager.AppSettings["password"];
+        string Sender = ConfigurationManager.AppSettings["sender"];
 
         static int SentEmailCounter = 0;
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
+            _logger.Info(Host);
+
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             var mail = emailPerson.Email;
