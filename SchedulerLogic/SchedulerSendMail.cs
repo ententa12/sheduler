@@ -32,11 +32,12 @@ namespace SchedulerLogic
                     .WithIdentity(Guid.NewGuid().ToString())
                     .StartNow()
                     .WithSimpleSchedule(x => x
-                        .WithIntervalInMinutes(1)
+//                        .WithIntervalInMinutes(1)
+                        .WithIntervalInSeconds(10)
                         .RepeatForever())
                     .Build();
                 await scheduler.Start();
-                await scheduler.ScheduleJob(CreateJobWithMail(toSkip), trigger);
+                await scheduler.ScheduleJob(CreateJobWithMail(toSkip++), trigger);
             }
             catch (SchedulerException se)
             {
@@ -49,7 +50,7 @@ namespace SchedulerLogic
             _logger.Info("In Job");
             return JobBuilder.Create<SendMailJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
-                .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"toSkipp", toSkip}}))
+                .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"toSkip", toSkip}}))
                 .Build();
         }
     }
