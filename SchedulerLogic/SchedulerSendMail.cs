@@ -14,6 +14,7 @@ namespace SchedulerLogic
     public class SchedulerSendMail
     {
         ILogger _logger;
+        int _toSkip = -1;
 
         public SchedulerSendMail()
         {
@@ -22,7 +23,6 @@ namespace SchedulerLogic
 
         public async Task SendEmails()
         {
-            int toSkip = 0;
             try
             {
                 StdSchedulerFactory factory = new StdSchedulerFactory();
@@ -32,12 +32,12 @@ namespace SchedulerLogic
                     .WithIdentity(Guid.NewGuid().ToString())
                     .StartNow()
                     .WithSimpleSchedule(x => x
-//                        .WithIntervalInMinutes(1)
-                        .WithIntervalInSeconds(10)
+                        .WithIntervalInMinutes(1)
+//                        .WithIntervalInSeconds(10)
                         .RepeatForever())
                     .Build();
                 await scheduler.Start();
-                await scheduler.ScheduleJob(CreateJobWithMail(toSkip++), trigger);
+                await scheduler.ScheduleJob(CreateJobWithMail(_toSkip), trigger);
             }
             catch (SchedulerException se)
             {
@@ -48,6 +48,7 @@ namespace SchedulerLogic
         IJobDetail CreateJobWithMail(int toSkip)
         {
             _logger.Info("In Job");
+            toSkip++;
             return JobBuilder.Create<SendMailJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
                 .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"toSkip", toSkip}}))

@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using GemBox.Email;
 using GemBox.Email.Smtp;
-using Logger = NLogger.Logger;
 using NLog;
-using System.Configuration;
+using Logger = NLogger.Logger;
 
 namespace EmailSenderLogic
 {
@@ -17,9 +17,11 @@ namespace EmailSenderLogic
         public EmailSender()
         {
             _logger = new Logger().GetLogger();
+            ConfigurationManager.OpenExeConfiguration("C://Users//KiszczakPatryk//Documents//Visual Studio 2017//Projects//Sheduler//EmailSender//App.config");
+            ConfigurationManager.AppSettings.Get("Host");
         }
 
-        string Host = ConfigurationManager.AppSettings["host"];
+        string Host = ConfigurationManager.AppSettings.Get("Host");
         string Username = ConfigurationManager.AppSettings["username"];
         string Password = ConfigurationManager.AppSettings["password"];
         string Sender = ConfigurationManager.AppSettings["sender"];
@@ -63,7 +65,7 @@ namespace EmailSenderLogic
             }
             catch (Exception ex)
             {
-                //LoggerUtils.logger.Error(ex);
+                _logger.Error(ex);
             }
         }
     }
