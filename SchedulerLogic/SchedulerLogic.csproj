@@ -12,6 +12,7 @@
         <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
         <ProjectReference Include="..\CSVReaderLogic\CSVReaderLogic.csproj" />
         <ProjectReference Include="..\EmailSender\EmailSender.csproj" />
+        <ProjectReference Include="..\NLogger\NLogger.csproj" />
     </ItemGroup>
 
 </Project>

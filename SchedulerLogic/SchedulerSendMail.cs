@@ -4,42 +4,52 @@ using System.Linq;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using CSVReaderLogic;
+using NLog;
 using Quartz;
 using Quartz.Impl;
+using Logger = NLogger.Logger;
 
 namespace SchedulerLogic
 {
     public class SchedulerSendMail
     {
-        //static Logger logger = LogManager.GetLogger("fileLogger");
+        ILogger _logger;
+
+        public SchedulerSendMail()
+        {
+            _logger = new Logger().GetLogger();
+        }
+
         public async Task SendEmails()
         {
-            var emails = new CsvEmailReader<EmailPerson>().ReadCsv("C:\\csv\\EmailList.csv", 0, 0);
+            int toSkip = 0;
             try
             {
                 StdSchedulerFactory factory = new StdSchedulerFactory();
                 IScheduler scheduler = await factory.GetScheduler();
-                await scheduler.Start();
-                var mailTasks = emails.Select(mail => scheduler.ScheduleJob(CreateJobWithMail(mail), TriggerBuilder
+                ITrigger trigger = TriggerBuilder
                     .Create()
                     .WithIdentity(Guid.NewGuid().ToString())
                     .StartNow()
-                    .WithSimpleSchedule()
-                    .Build()));
-                await Task.WhenAll(mailTasks);
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInMinutes(1)
+                        .RepeatForever())
+                    .Build();
+                await scheduler.Start();
+                await scheduler.ScheduleJob(CreateJobWithMail(toSkip), trigger);
             }
             catch (SchedulerException se)
             {
-                //logger.Error(se);
+                _logger.Error(se);
             }
         }
 
-        static IJobDetail CreateJobWithMail(EmailPerson emailBody)
+        IJobDetail CreateJobWithMail(int toSkip)
         {
-            //logger.Info("In Job");
+            _logger.Info("In Job");
             return JobBuilder.Create<SendMailJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
-                .SetJobData(new JobDataMap(new Dictionary<String, EmailPerson>() {{"Mail", emailBody}}))
+                .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"toSkipp", toSkip}}))
                 .Build();
         }
     }
