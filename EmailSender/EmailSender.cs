@@ -4,24 +4,32 @@ using System.Threading.Tasks;
 using CSVEmailModel;
 using GemBox.Email;
 using GemBox.Email.Smtp;
+using Logger = NLogger.Logger;
+using NLog;
+using System.Configuration;
 
 namespace EmailSenderLogic
 {
     public class EmailSender
     {
+        ILogger _logger;
+
         public EmailSender()
         {
+            _logger = new Logger().GetLogger();
         }
 
-        const string Host = "smtp.gmail.com";
-        const string Username = "scheduler.ztp";
-        const string Password = "ZAQ!2wsx";
-        const string Sender = "scheduler.ztp@gmail.com";
+        string Host = ConfigurationManager.AppSettings["host"];
+        string Username = ConfigurationManager.AppSettings["username"];
+        string Password = ConfigurationManager.AppSettings["password"];
+        string Sender = ConfigurationManager.AppSettings["sender"];
 
         static int SentEmailCounter = 0;
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
+            _logger.Info(Host);
+
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             var mail = emailPerson.Email;

@@ -5,8 +5,12 @@
         <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\WindowsService\WindowsService.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WindowsService\WindowsService.csproj" />
+  </ItemGroup>
 
 </Project>
