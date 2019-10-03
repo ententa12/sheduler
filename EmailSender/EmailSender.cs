@@ -21,24 +21,25 @@ namespace EmailSenderLogic
             ConfigurationManager.AppSettings.Get("Host");
         }
 
-        string Host = ConfigurationManager.AppSettings.Get("Host");
-        string Username = ConfigurationManager.AppSettings["username"];
-        string Password = ConfigurationManager.AppSettings["password"];
-        string Sender = ConfigurationManager.AppSettings["sender"];
+//        string Host = ConfigurationManager.AppSettings.Get("Host");
+//        string Username = ConfigurationManager.AppSettings["username"];
+//        string Password = ConfigurationManager.AppSettings["password"];
+//        string Sender = ConfigurationManager.AppSettings["sender"];
+
+        const string Host = "smtp.gmail.com";
+        const string Username = "scheduler.ztp";
+        const string Password = "ZAQ!2wsx";
+        const string Sender = "scheduler.ztp@gmail.com";
 
         static int SentEmailCounter = 0;
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
-            _logger.Info(Host);
-
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-
             var mail = emailPerson.Email;
-
             Task sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
-
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
+            _logger.Info("Mail sended to {0}", emailPerson.Email);
             await sendBuilkEmails;
         }
 
@@ -48,7 +49,7 @@ namespace EmailSenderLogic
             {
                 using (var smtp = new SmtpClient(Host))
                 {
-                    smtp.ConnectTimeout = TimeSpan.FromSeconds(10);
+                    smtp.ConnectTimeout = TimeSpan.FromSeconds(20);
                     smtp.Connect();
                     smtp.Authenticate(Username, Password);
 

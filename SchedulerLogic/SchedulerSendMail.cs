@@ -33,7 +33,6 @@ namespace SchedulerLogic
                     .StartNow()
                     .WithSimpleSchedule(x => x
                         .WithIntervalInMinutes(1)
-//                        .WithIntervalInSeconds(10)
                         .RepeatForever())
                     .Build();
                 await scheduler.Start();

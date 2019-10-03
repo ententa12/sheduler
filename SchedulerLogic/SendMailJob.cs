@@ -16,34 +16,30 @@ namespace SchedulerLogic
     {
         ILogger _logger;
         IDatabaseContext<EmailPerson> _context;
+        EmailSender _emailSender;
 
         public SendMailJob()
         {
             _logger = new Logger().GetLogger();
             _context = new DatabaseLogic();
+            _emailSender = new EmailSender();
         }
+
         public async Task Execute(IJobExecutionContext context)
         {
-            var toSkip = (int) context.JobDetail.JobDataMap.Get("toSkip");
-            _logger.Info(toSkip.ToString() + DateTime.Now);
+            var toSkip = _context.HigherIndex();
+            _logger.Info("Last index: " + toSkip.ToString());
             var emails = new CsvEmailReader<EmailPerson>()
-                .ReadCsv("C:\\csv\\EmailList.csv", 100, toSkip * 100);
-            emails.Skip(1).ToList().ForEach(p =>
-            {
-                _context.Save(p);
-                _logger.Info("Save item in database" + p.Email);
-                _logger.Info(p.ToString() + DateTime.Now);
-            });
-            EmailSender emailSender = new EmailSender();
-            var sendMails = emails.Where(e => !_context.CheckIfExist(e)).Select(e =>
-            {
-                _context.Save(e);
-                _logger.Info("Save item in database" + e.Email);
-                return emailSender.SendEmail(e);
-            });
+                .ReadCsv("C:\\csv\\EmailList.csv", 100, toSkip);
+            var sendMails = emails
+                .Where(e => !_context.CheckIfExist(e))
+                .Select(e =>
+                {
+                    _context.Save(e);
+                    _logger.Info("Save item in database " + e.Email);
+                    return _emailSender.SendEmail(e);
+                });
             await Task.WhenAll(sendMails);
-//            await new Task(new Action(() => Console.WriteLine(toSkip)));
-//            await new EmailSender().SendEmail(emailBody);
         }
     }
 }
