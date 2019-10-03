@@ -19,7 +19,7 @@ namespace EmailSenderLogic
             _logger = new Logger().GetLogger();
         }
 
-        string Host = ConfigurationManager.AppSettings["host"];
+        string Host = ConfigurationManager.AppSettings["Key1"];
         string Username = ConfigurationManager.AppSettings["username"];
         string Password = ConfigurationManager.AppSettings["password"];
         string Sender = ConfigurationManager.AppSettings["sender"];
