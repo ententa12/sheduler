@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using GemBox.Email;
 using GemBox.Email.Smtp;
-using Logger = NLogger.Logger;
 using NLog;
-using System.Configuration;
+using Logger = NLogger.Logger;
 
 namespace EmailSenderLogic
 {
@@ -17,6 +17,8 @@ namespace EmailSenderLogic
         public EmailSender()
         {
             _logger = new Logger().GetLogger();
+            ConfigurationManager.OpenExeConfiguration("C://Users//KiszczakPatryk//Documents//Visual Studio 2017//Projects//Sheduler//EmailSender//App.config");
+            ConfigurationManager.AppSettings.Get("Host");
         }
 
         string Host = ConfigurationManager.AppSettings["Key1"];
@@ -28,15 +30,11 @@ namespace EmailSenderLogic
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
-            _logger.Info(Host);
-
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-
             var mail = emailPerson.Email;
-
             Task sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
-
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
+            _logger.Info("Mail sended to {0}", emailPerson.Email);
             await sendBuilkEmails;
         }
 
@@ -46,7 +44,7 @@ namespace EmailSenderLogic
             {
                 using (var smtp = new SmtpClient(Host))
                 {
-                    smtp.ConnectTimeout = TimeSpan.FromSeconds(10);
+                    smtp.ConnectTimeout = TimeSpan.FromSeconds(20);
                     smtp.Connect();
                     smtp.Authenticate(Username, Password);
 
@@ -63,7 +61,7 @@ namespace EmailSenderLogic
             }
             catch (Exception ex)
             {
-                //LoggerUtils.logger.Error(ex);
+                _logger.Error(ex);
             }
         }
     }

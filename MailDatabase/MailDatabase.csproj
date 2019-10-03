@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
+      <ProjectReference Include="..\MailDatabaseInterface\MailDatabaseInterface.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="LiteDB" Version="5.0.0-alpha2" />
+    </ItemGroup>
+
+</Project>
