@@ -27,10 +27,10 @@ namespace SchedulerLogic
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var toSkip = _context.HigherIndex();
-            _logger.Info("Last index: " + toSkip.ToString());
+          // var toSkip = _context.HigherIndex();
+          //  _logger.Info("Last index: " + toSkip.ToString());
             var emails = new CsvEmailReader<EmailPerson>()
-                .ReadCsv("C:\\csv\\EmailList.csv", 100, toSkip);
+                .ReadCsv("C:\\csv\\EmailList.csv", 100, 0);
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>

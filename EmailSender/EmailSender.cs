@@ -17,11 +17,11 @@ namespace EmailSenderLogic
         public EmailSender()
         {
             _logger = new Logger().GetLogger();
-            ConfigurationManager.OpenExeConfiguration("C://Users//KiszczakPatryk//Documents//Visual Studio 2017//Projects//Sheduler//EmailSender//App.config");
-            ConfigurationManager.AppSettings.Get("Host");
+//            ConfigurationManager.OpenExeConfiguration("C://Users//KiszczakPatryk//Documents//Visual Studio 2017//Projects//Sheduler//EmailSender//App.config");
+//            ConfigurationManager.AppSettings.Get("Host");
         }
 
-        string Host = ConfigurationManager.AppSettings["Key1"];
+        string Host = ConfigurationManager.AppSettings["host"];
         string Username = ConfigurationManager.AppSettings["username"];
         string Password = ConfigurationManager.AppSettings["password"];
         string Sender = ConfigurationManager.AppSettings["sender"];
