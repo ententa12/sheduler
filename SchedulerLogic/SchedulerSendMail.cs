@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using CSVEmailModel;
@@ -14,7 +15,7 @@ namespace SchedulerLogic
     public class SchedulerSendMail
     {
         ILogger _logger;
-        int _toSkip = -1;
+        int _toSendInInterval = 100;
 
         public SchedulerSendMail()
         {
@@ -36,7 +37,7 @@ namespace SchedulerLogic
                         .RepeatForever())
                     .Build();
                 await scheduler.Start();
-                await scheduler.ScheduleJob(CreateJobWithMail(_toSkip), trigger);
+                await scheduler.ScheduleJob(CreateJobWithMail(_toSendInInterval), trigger);
             }
             catch (SchedulerException se)
             {
@@ -44,13 +45,12 @@ namespace SchedulerLogic
             }
         }
 
-        IJobDetail CreateJobWithMail(int toSkip)
+        IJobDetail CreateJobWithMail(int sendCount)
         {
             _logger.Info("In Job");
-            toSkip++;
             return JobBuilder.Create<SendMailJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
-                .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"toSkip", toSkip}}))
+                .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"sendCount", sendCount}}))
                 .Build();
         }
     }

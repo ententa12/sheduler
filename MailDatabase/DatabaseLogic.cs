@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CSVEmailModel;
 using LiteDB;
 using MailDatabaseInterface;
@@ -20,6 +21,7 @@ namespace MailDatabase
         public void Save(EmailPerson obj)
         {
             _emails.Insert(obj);
+            _db.Commit();
         }
 
         public bool CheckIfExist(EmailPerson obj)
@@ -32,11 +34,14 @@ namespace MailDatabase
             return _emails.Max();
         }
 
+        public Task Dispose()
+        {
+            return new Task(() => _db.Dispose());
+        }
+
         public List<EmailPerson> GetElements()
         {
             return _emails.FindAll().ToList();
         }
-
-        public LiteCollection<EmailPerson> Emails => _emails;
     }
 }
