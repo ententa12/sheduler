@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MailDatabaseInterface
 {
@@ -7,6 +8,7 @@ namespace MailDatabaseInterface
         void Save(T obj);
         bool CheckIfExist(T obj);
         int HigherIndex();
+        Task Dispose();
         List<T> GetElements();
     }
 }

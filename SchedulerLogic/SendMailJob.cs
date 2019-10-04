@@ -27,19 +27,21 @@ namespace SchedulerLogic
 
         public async Task Execute(IJobExecutionContext context)
         {
+            var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
             var toSkip = _context.HigherIndex();
             _logger.Info("Last index: " + toSkip.ToString());
             var emails = new CsvEmailReader<EmailPerson>()
-                .ReadCsv("C:\\csv\\EmailList.csv", 100, toSkip);
+                .ReadCsv("C:\\csv\\EmailList.csv", countMailsToSend, toSkip);
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>
                 {
                     _context.Save(e);
-                    _logger.Info("Save item in database " + e.Email);
+                    _logger.Debug("Save item in database with id" + e.Id);
                     return _emailSender.SendEmail(e);
                 });
             await Task.WhenAll(sendMails);
+            _context.Dispose().Start();
         }
     }
 }

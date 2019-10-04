@@ -16,15 +16,10 @@ namespace EmailSenderLogic
 
         public EmailSender()
         {
+            var c = ConfigurationManager.AppSettings;
+            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
             _logger = new Logger().GetLogger();
-            ConfigurationManager.OpenExeConfiguration("C://Users//KiszczakPatryk//Documents//Visual Studio 2017//Projects//Sheduler//EmailSender//App.config");
-            ConfigurationManager.AppSettings.Get("Host");
         }
-
-//        string Host = ConfigurationManager.AppSettings.Get("Host");
-//        string Username = ConfigurationManager.AppSettings["username"];
-//        string Password = ConfigurationManager.AppSettings["password"];
-//        string Sender = ConfigurationManager.AppSettings["sender"];
 
         const string Host = "smtp.gmail.com";
         const string Username = "scheduler.ztp";
@@ -35,7 +30,6 @@ namespace EmailSenderLogic
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
-            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
             var mail = emailPerson.Email;
             Task sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
             Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
@@ -52,14 +46,14 @@ namespace EmailSenderLogic
                     smtp.ConnectTimeout = TimeSpan.FromSeconds(20);
                     smtp.Connect();
                     smtp.Authenticate(Username, Password);
-
+ 
                     MailMessage message = new MailMessage(Sender, recipients)
                     {
                         Subject = emailPerson.Title,
                         BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
                                    + "\n" + emailPerson.Message
                     };
-
+ 
                     smtp.SendMessage(message);
                     Interlocked.Increment(ref SentEmailCounter);
                 }
