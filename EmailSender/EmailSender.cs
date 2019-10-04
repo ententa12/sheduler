@@ -21,18 +21,18 @@ namespace EmailSenderLogic
             _logger = new Logger().GetLogger();
         }
 
-        const string Host = "smtp.gmail.com";
-        const string Username = "scheduler.ztp";
-        const string Password = "ZAQ!2wsx";
-        const string Sender = "scheduler.ztp@gmail.com";
+        readonly string Host = ConfigurationManager.AppSettings["host"];
+        readonly string Username = ConfigurationManager.AppSettings["username"];
+        readonly string Password = ConfigurationManager.AppSettings["password"];
+        readonly string Sender = ConfigurationManager.AppSettings["sender"];
 
         static int SentEmailCounter = 0;
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
             var mail = emailPerson.Email;
-            Task sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
-            Task sendBuilkEmails = Task.WhenAll(sendMailingChunks);
+            var sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
+            var sendBuilkEmails = Task.WhenAll(sendMailingChunks);
             _logger.Info("Mail sended to {0}", emailPerson.Email);
             await sendBuilkEmails;
         }
