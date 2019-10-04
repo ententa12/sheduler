@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Threading.Tasks;
-using CSVEmailModel;
-using CSVReaderLogic;
+using DIConfiguration;
+using Ninject;
 using NLog;
 using Quartz;
 using Quartz.Impl;
-using Logger = NLogger.Logger;
 
 namespace SchedulerLogic
 {
@@ -19,7 +16,8 @@ namespace SchedulerLogic
 
         public SchedulerSendMail()
         {
-            _logger = new Logger().GetLogger();
+            var kernel = new StandardKernel(new Bindings());
+            _logger = kernel.Get<ILogger>();
         }
 
         public async Task SendEmails()

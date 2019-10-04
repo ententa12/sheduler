@@ -6,17 +6,19 @@
         <RootNamespace>EmailSenderLogic</RootNamespace>
     </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="GemBox.Email" Version="13.0.0.1042" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="3.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="GemBox.Email" Version="13.0.0.1042" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="3.0.0" />
+        <PackageReference Include="NLog" Version="4.6.7" />
+        <PackageReference Include="NLog.Config" Version="4.6.7" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
-        <ProjectReference Include="..\NLogger\NLogger.csproj" />
+        <ProjectReference Include="..\EmailSenderInterface\EmailSenderInterface.csproj" />
     </ItemGroup>
 
 </Project>
