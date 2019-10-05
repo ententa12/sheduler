@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CSVReaderInterface\CSVReaderInterface.csproj" />
+      <ProjectReference Include="..\DataReaderInterface\DataReaderInterface.csproj" />
     </ItemGroup>
 
 </Project>

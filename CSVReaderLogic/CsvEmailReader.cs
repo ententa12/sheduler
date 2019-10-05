@@ -6,9 +6,9 @@ using CSVReaderInterface;
 
 namespace CSVReaderLogic
 {
-    public class CsvEmailReader<T> : ICsvReader<T>
+    public class CsvEmailReader<T> : IDataReader<T>
     {
-        public List<T> ReadCsv(string path, int count, int skip)
+        public List<T> ReadFile(string path, int count, int skip)
         {
             using (var csv = new CsvReader(new StreamReader(path)))
             {

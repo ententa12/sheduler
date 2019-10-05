@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartUp", "Sheduler\StartUp.csproj", "{6237354D-4FAA-4EFF-B161-14CB9F800E83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVReaderInterface", "CSVReaderInterface\CSVReaderInterface.csproj", "{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataReaderInterface", "DataReaderInterface\DataReaderInterface.csproj", "{4A0E1339-9A31-4381-B9D7-539C9A4C74B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVReaderLogic", "CSVReaderLogic\CSVReaderLogic.csproj", "{13329E93-4412-4A0E-A17D-117431E57115}"
 EndProject

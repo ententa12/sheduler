@@ -9,6 +9,5 @@ namespace MailDatabaseInterface
         bool CheckIfExist(T obj);
         int HigherIndex();
         Task Dispose();
-        List<T> GetElements();
     }
 }

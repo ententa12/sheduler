@@ -13,10 +13,10 @@ namespace SchedulerLogic
 {
     class SendMailJob : IJob
     {
-        ILogger _logger;
-        IDatabaseContext<EmailPerson> _context;
-        IEmailSender<EmailPerson> _emailSender;
-        ICsvReader<EmailPerson> _csvReader;
+        private readonly ILogger _logger;
+        private readonly IDatabaseContext<EmailPerson> _context;
+        private readonly IEmailSender<EmailPerson> _emailSender;
+        private readonly IDataReader<EmailPerson> _csvReader;
 
         public SendMailJob()
         {
@@ -24,15 +24,15 @@ namespace SchedulerLogic
             _logger = kernel.Get<ILogger>();
             _context = kernel.Get<IDatabaseContext<EmailPerson>>();
             _emailSender = kernel.Get<IEmailSender<EmailPerson>>();
-            _csvReader = kernel.Get<ICsvReader<EmailPerson>>();
+            _csvReader = kernel.Get<IDataReader<EmailPerson>>();
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
             var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
             var toSkip = _context.HigherIndex();
-            _logger.Info("Last index: " + toSkip.ToString());
-            var emails = _csvReader.ReadCsv("EmailList.csv", countMailsToSend, toSkip);
+            _logger.Info("Last index: " + toSkip);
+            var emails = _csvReader.ReadFile("EmailList.csv", countMailsToSend, toSkip);
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>

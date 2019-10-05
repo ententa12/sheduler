@@ -1,6 +1,6 @@
 ﻿using WindowsService;
 
-namespace Sheduler
+namespace StartUp
 {
     class Program
     {

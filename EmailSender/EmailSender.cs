@@ -12,21 +12,19 @@ namespace EmailSenderLogic
 {
     public class EmailSender : IEmailSender<EmailPerson>
     {
-        ILogger _logger;
+        private readonly ILogger _logger;
 
         public EmailSender()
         {
             var c = ConfigurationManager.AppSettings;
-            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+            ComponentInfo.SetLicense(ConfigurationManager.AppSettings["license"]);
             _logger = LogManager.GetLogger("fileLogger");
         }
 
-        readonly string Host = ConfigurationManager.AppSettings["host"];
-        readonly string Username = ConfigurationManager.AppSettings["username"];
-        readonly string Password = ConfigurationManager.AppSettings["password"];
-        readonly string Sender = ConfigurationManager.AppSettings["sender"];
-
-        static int SentEmailCounter = 0;
+        private readonly string _host = ConfigurationManager.AppSettings["host"];
+        private readonly string _username = ConfigurationManager.AppSettings["username"];
+        private readonly string _password = ConfigurationManager.AppSettings["password"];
+        private readonly string _sender = ConfigurationManager.AppSettings["sender"];
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
@@ -41,13 +39,13 @@ namespace EmailSenderLogic
         {
             try
             {
-                using (var smtp = new SmtpClient(Host))
+                using (var smtp = new SmtpClient(_host))
                 {
                     smtp.ConnectTimeout = TimeSpan.FromSeconds(20);
                     smtp.Connect();
-                    smtp.Authenticate(Username, Password);
-
-                    MailMessage message = new MailMessage(Sender, recipients)
+                    smtp.Authenticate(_username, _password);
+                    
+                    var message = new MailMessage(_sender, recipients)
                     {
                         Subject = emailPerson.Title,
                         BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
@@ -55,7 +53,6 @@ namespace EmailSenderLogic
                     };
 
                     smtp.SendMessage(message);
-                    Interlocked.Increment(ref SentEmailCounter);
                 }
             }
             catch (Exception ex)
