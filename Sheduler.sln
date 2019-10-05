@@ -17,11 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService", "WindowsSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{C6FCD362-40C4-4975-8351-83E4FFBDCECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogger", "NLogger\NLogger.csproj", "{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDatabase", "MailDatabase\MailDatabase.csproj", "{A49E8354-8B27-468C-A50C-578ED98361AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDatabaseInterface", "MailDatabaseInterface\MailDatabaseInterface.csproj", "{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIConfiguration", "DIConfiguration\DIConfiguration.csproj", "{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderInterface", "EmailSenderInterface\EmailSenderInterface.csproj", "{ACDE212E-9DBB-450A-B743-F91A91107B80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +59,6 @@ Global
 		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6FCD362-40C4-4975-8351-83E4FFBDCECC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C60261A-8D3F-49EF-9E9F-EA6C999E6750}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A49E8354-8B27-468C-A50C-578ED98361AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A49E8354-8B27-468C-A50C-578ED98361AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A49E8354-8B27-468C-A50C-578ED98361AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +67,14 @@ Global
 		{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

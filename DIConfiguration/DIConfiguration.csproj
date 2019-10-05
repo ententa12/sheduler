@@ -5,14 +5,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
-        <PackageReference Include="Quartz" Version="3.0.7" />
+        <PackageReference Include="Ninject" Version="3.3.4" />
+        <PackageReference Include="NLog" Version="4.6.7" />
+        <PackageReference Include="NLog.Config" Version="4.6.7" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
+        <ProjectReference Include="..\CSVReaderInterface\CSVReaderInterface.csproj" />
         <ProjectReference Include="..\CSVReaderLogic\CSVReaderLogic.csproj" />
-        <ProjectReference Include="..\DIConfiguration\DIConfiguration.csproj" />
+        <ProjectReference Include="..\EmailSenderInterface\EmailSenderInterface.csproj" />
         <ProjectReference Include="..\EmailSender\EmailSender.csproj" />
         <ProjectReference Include="..\MailDatabaseInterface\MailDatabaseInterface.csproj" />
         <ProjectReference Include="..\MailDatabase\MailDatabase.csproj" />

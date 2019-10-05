@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using CSVReaderLogic;
-using EmailSenderLogic;
-using MailDatabase;
+using CSVReaderInterface;
+using DIConfiguration;
+using EmailSenderInterface;
 using MailDatabaseInterface;
+using Ninject;
 using NLog;
 using Quartz;
-using Logger = NLogger.Logger;
 
 namespace SchedulerLogic
 {
@@ -16,13 +15,16 @@ namespace SchedulerLogic
     {
         ILogger _logger;
         IDatabaseContext<EmailPerson> _context;
-        EmailSender _emailSender;
+        IEmailSender<EmailPerson> _emailSender;
+        ICsvReader<EmailPerson> _csvReader;
 
         public SendMailJob()
         {
-            _logger = new Logger().GetLogger();
-            _context = new DatabaseLogic();
-            _emailSender = new EmailSender();
+            var kernel = new StandardKernel(new Bindings());
+            _logger = kernel.Get<ILogger>();
+            _context = kernel.Get<IDatabaseContext<EmailPerson>>();
+            _emailSender = kernel.Get<IEmailSender<EmailPerson>>();
+            _csvReader = kernel.Get<ICsvReader<EmailPerson>>();
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -30,8 +32,7 @@ namespace SchedulerLogic
             var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
             var toSkip = _context.HigherIndex();
             _logger.Info("Last index: " + toSkip.ToString());
-            var emails = new CsvEmailReader<EmailPerson>()
-                .ReadCsv("C:\\csv\\EmailList.csv", countMailsToSend, toSkip);
+            var emails = _csvReader.ReadCsv("EmailList.csv", countMailsToSend, toSkip);
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>

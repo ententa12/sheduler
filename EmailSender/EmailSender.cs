@@ -3,14 +3,14 @@ using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
+using EmailSenderInterface;
 using GemBox.Email;
 using GemBox.Email.Smtp;
 using NLog;
-using Logger = NLogger.Logger;
 
 namespace EmailSenderLogic
 {
-    public class EmailSender
+    public class EmailSender : IEmailSender<EmailPerson>
     {
         ILogger _logger;
 
@@ -18,7 +18,7 @@ namespace EmailSenderLogic
         {
             var c = ConfigurationManager.AppSettings;
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-            _logger = new Logger().GetLogger();
+            _logger = LogManager.GetLogger("fileLogger");
         }
 
         readonly string Host = ConfigurationManager.AppSettings["host"];
@@ -46,14 +46,14 @@ namespace EmailSenderLogic
                     smtp.ConnectTimeout = TimeSpan.FromSeconds(20);
                     smtp.Connect();
                     smtp.Authenticate(Username, Password);
- 
+
                     MailMessage message = new MailMessage(Sender, recipients)
                     {
                         Subject = emailPerson.Title,
                         BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
                                    + "\n" + emailPerson.Message
                     };
- 
+
                     smtp.SendMessage(message);
                     Interlocked.Increment(ref SentEmailCounter);
                 }

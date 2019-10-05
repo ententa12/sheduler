@@ -5,13 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
-      <ProjectReference Include="..\MailDatabaseInterface\MailDatabaseInterface.csproj" />
+        <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
+        <ProjectReference Include="..\MailDatabaseInterface\MailDatabaseInterface.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="LiteDB" Version="5.0.0-alpha2" />
-      <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
+        <PackageReference Include="LiteDB" Version="5.0.0-alpha2" />
     </ItemGroup>
 
 </Project>
