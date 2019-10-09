@@ -29,10 +29,8 @@ namespace EmailSenderLogic
         public async Task SendEmail(EmailPerson emailPerson)
         {
             var mail = emailPerson.Email;
-            var sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
-            var sendBuilkEmails = Task.WhenAll(sendMailingChunks);
-            _logger.Info("Mail sended to {0}", emailPerson.Email);
-            await sendBuilkEmails;
+            await Task.Run(() => SendEmails(mail, emailPerson));
+            _logger.Info("Mail sent to {0}", emailPerson.Email);
         }
 
         void SendEmails(string recipients, EmailPerson emailPerson)

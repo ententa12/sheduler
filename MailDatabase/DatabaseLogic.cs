@@ -27,7 +27,7 @@ namespace MailDatabase
             return _emails.Exists(email => email.Id == obj.Id);
         }
 
-        public int HigherIndex()
+        public int LastIndex()
         {
             return _emails.Max();
         }

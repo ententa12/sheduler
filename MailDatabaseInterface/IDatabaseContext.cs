@@ -7,7 +7,7 @@ namespace MailDatabaseInterface
     {
         void Save(T obj);
         bool CheckIfExist(T obj);
-        int HigherIndex();
+        int LastIndex();
         Task Dispose();
     }
 }
