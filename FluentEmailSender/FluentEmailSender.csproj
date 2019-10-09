@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
+      <ProjectReference Include="..\EmailSenderInterface\EmailSenderInterface.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentEmail.Core" Version="2.7.0" />
+      <PackageReference Include="FluentEmail.Mailgun" Version="2.7.0" />
+      <PackageReference Include="FluentEmail.Smtp" Version="2.7.1" />
+      <PackageReference Include="NLog" Version="4.6.7" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
+    </ItemGroup>
+
+</Project>

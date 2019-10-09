@@ -2,7 +2,7 @@
 using CSVReaderInterface;
 using CSVReaderLogic;
 using EmailSenderInterface;
-using EmailSenderLogic;
+using FluentEmailSender;
 using MailDatabase;
 using MailDatabaseInterface;
 using Ninject.Modules;
@@ -16,7 +16,7 @@ namespace DIConfiguration
         {
             Bind<IDataReader<EmailPerson>>().To<CsvEmailReader<EmailPerson>>();
             Bind<IDatabaseContext<EmailPerson>>().To<DatabaseLogic>();
-            Bind<IEmailSender<EmailPerson>>().To<EmailSender>();
+            Bind<IEmailSender<EmailPerson>>().To<FluentSender>();
             Bind<ILogger>().ToMethod((p) => LogManager.GetLogger("fileLogger"));
         }
     }
