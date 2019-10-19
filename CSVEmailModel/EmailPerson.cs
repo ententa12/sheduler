@@ -11,8 +11,7 @@
 
         override public string ToString()
         {
-            return "ID: " + Id + " First Name: " + FirstName + " Last Name: " + LastName + " Title: " + Title +
-                   " Message: " + Message;
+            return $"{nameof(Id)}: {Id}, {nameof(Email)}: {Email}, {nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Title)}: {Title}, {nameof(Message)}: {Message}";
         }
     }
 }
