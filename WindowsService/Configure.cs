@@ -17,8 +17,8 @@ namespace WindowsService
                     });
                     configure.RunAsLocalSystem();
                     configure.UseNLog();
-                    configure.SetServiceName("Sheduler");
-                    configure.SetDisplayName("Sheduler");
+                    configure.SetServiceName("Scheduler");
+                    configure.SetDisplayName("Scheduler");
                     configure.SetDescription("Send emails");
                 });
         }

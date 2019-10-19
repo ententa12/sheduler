@@ -14,7 +14,7 @@ namespace DIConfiguration
     {
         public override void Load()
         {
-            Bind<ICsvReader<EmailPerson>>().To<CsvEmailReader<EmailPerson>>();
+            Bind<IDataReader<EmailPerson>>().To<CsvEmailReader<EmailPerson>>();
             Bind<IDatabaseContext<EmailPerson>>().To<DatabaseLogic>();
             Bind<IEmailSender<EmailPerson>>().To<EmailSender>();
             Bind<ILogger>().ToMethod((p) => LogManager.GetLogger("fileLogger"));

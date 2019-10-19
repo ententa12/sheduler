@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using EmailSenderInterface;
@@ -12,50 +11,44 @@ namespace EmailSenderLogic
 {
     public class EmailSender : IEmailSender<EmailPerson>
     {
-        ILogger _logger;
+        private readonly ILogger _logger;
 
         public EmailSender()
         {
             var c = ConfigurationManager.AppSettings;
-            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+            ComponentInfo.SetLicense(ConfigurationManager.AppSettings["license"]);
             _logger = LogManager.GetLogger("fileLogger");
         }
 
-        readonly string Host = ConfigurationManager.AppSettings["host"];
-        readonly string Username = ConfigurationManager.AppSettings["username"];
-        readonly string Password = ConfigurationManager.AppSettings["password"];
-        readonly string Sender = ConfigurationManager.AppSettings["sender"];
-
-        static int SentEmailCounter = 0;
+        private readonly string _host = ConfigurationManager.AppSettings["host"];
+        private readonly string _username = ConfigurationManager.AppSettings["username"];
+        private readonly string _password = ConfigurationManager.AppSettings["password"];
+        private readonly string _sender = ConfigurationManager.AppSettings["sender"];
 
         public async Task SendEmail(EmailPerson emailPerson)
         {
             var mail = emailPerson.Email;
-            var sendMailingChunks = Task.Run(() => SendEmails(mail, emailPerson));
-            var sendBuilkEmails = Task.WhenAll(sendMailingChunks);
-            _logger.Info("Mail sended to {0}", emailPerson.Email);
-            await sendBuilkEmails;
+            await Task.Run(() => SendEmails(mail, emailPerson));
+            _logger.Info("Mail sent to {0}", emailPerson.Email);
         }
 
         void SendEmails(string recipients, EmailPerson emailPerson)
         {
             try
             {
-                using (var smtp = new SmtpClient(Host))
+                using (var smtp = new SmtpClient(_host))
                 {
                     smtp.ConnectTimeout = TimeSpan.FromSeconds(20);
                     smtp.Connect();
-                    smtp.Authenticate(Username, Password);
+                    smtp.Authenticate(_username, _password);
 
-                    MailMessage message = new MailMessage(Sender, recipients)
+                    var message = new MailMessage(_sender, recipients)
                     {
                         Subject = emailPerson.Title,
-                        BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
-                                   + "\n" + emailPerson.Message
+                        BodyText = $"Witaj {emailPerson.FirstName} {emailPerson.LastName}\n{emailPerson.Message}"
                     };
 
                     smtp.SendMessage(message);
-                    Interlocked.Increment(ref SentEmailCounter);
                 }
             }
             catch (Exception ex)

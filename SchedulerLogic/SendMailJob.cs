@@ -13,10 +13,10 @@ namespace SchedulerLogic
 {
     class SendMailJob : IJob
     {
-        ILogger _logger;
-        IDatabaseContext<EmailPerson> _context;
-        IEmailSender<EmailPerson> _emailSender;
-        ICsvReader<EmailPerson> _csvReader;
+        private readonly ILogger _logger;
+        private readonly IDatabaseContext<EmailPerson> _context;
+        private readonly IEmailSender<EmailPerson> _emailSender;
+        private readonly IDataReader<EmailPerson> _csvReader;
 
         public SendMailJob()
         {
@@ -24,21 +24,21 @@ namespace SchedulerLogic
             _logger = kernel.Get<ILogger>();
             _context = kernel.Get<IDatabaseContext<EmailPerson>>();
             _emailSender = kernel.Get<IEmailSender<EmailPerson>>();
-            _csvReader = kernel.Get<ICsvReader<EmailPerson>>();
+            _csvReader = kernel.Get<IDataReader<EmailPerson>>();
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
             var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
-            var toSkip = _context.HigherIndex();
-            _logger.Info("Last index: " + toSkip.ToString());
-            var emails = _csvReader.ReadCsv("EmailList.csv", countMailsToSend, toSkip);
+            var toSkip = _context.LastIndex();
+            _logger.Info("Last index: {0}", toSkip);
+            var emails = _csvReader.ReadFile("EmailList.csv", countMailsToSend, toSkip);
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>
                 {
                     _context.Save(e);
-                    _logger.Debug("Save item in database with id" + e.Id);
+                    _logger.Debug("Save item in database with id {0}", e.Id);
                     return _emailSender.SendEmail(e);
                 });
             await Task.WhenAll(sendMails);

@@ -11,8 +11,8 @@ namespace SchedulerLogic
 {
     public class SchedulerSendMail
     {
-        ILogger _logger;
-        int _toSendInInterval = 100;
+        private readonly ILogger _logger;
+        private const int ToSendInInterval = 100;
 
         public SchedulerSendMail()
         {
@@ -24,9 +24,9 @@ namespace SchedulerLogic
         {
             try
             {
-                StdSchedulerFactory factory = new StdSchedulerFactory();
-                IScheduler scheduler = await factory.GetScheduler();
-                ITrigger trigger = TriggerBuilder
+                var factory = new StdSchedulerFactory();
+                var scheduler = await factory.GetScheduler();
+                var trigger = TriggerBuilder
                     .Create()
                     .WithIdentity(Guid.NewGuid().ToString())
                     .StartNow()
@@ -35,7 +35,7 @@ namespace SchedulerLogic
                         .RepeatForever())
                     .Build();
                 await scheduler.Start();
-                await scheduler.ScheduleJob(CreateJobWithMail(_toSendInInterval), trigger);
+                await scheduler.ScheduleJob(CreateJobWithMail(ToSendInInterval), trigger);
             }
             catch (SchedulerException se)
             {
@@ -43,12 +43,12 @@ namespace SchedulerLogic
             }
         }
 
-        IJobDetail CreateJobWithMail(int sendCount)
+        private IJobDetail CreateJobWithMail(int sendCount)
         {
             _logger.Info("In Job");
             return JobBuilder.Create<SendMailJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
-                .SetJobData(new JobDataMap(new Dictionary<String, int>() {{"sendCount", sendCount}}))
+                .SetJobData(new JobDataMap(new Dictionary<string, int>() {{"sendCount", sendCount}}))
                 .Build();
         }
     }

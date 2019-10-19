@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CSVEmailModel;
 using LiteDB;
 using MailDatabaseInterface;
@@ -9,8 +7,8 @@ namespace MailDatabase
 {
     public class DatabaseLogic : IDatabaseContext<EmailPerson>
     {
-        private LiteDatabase _db;
-        private LiteCollection<EmailPerson> _emails;
+        private readonly LiteDatabase _db;
+        private readonly LiteCollection<EmailPerson> _emails;
 
         public DatabaseLogic()
         {
@@ -29,7 +27,7 @@ namespace MailDatabase
             return _emails.Exists(email => email.Id == obj.Id);
         }
 
-        public int HigherIndex()
+        public int LastIndex()
         {
             return _emails.Max();
         }
@@ -37,11 +35,6 @@ namespace MailDatabase
         public Task Dispose()
         {
             return new Task(() => _db.Dispose());
-        }
-
-        public List<EmailPerson> GetElements()
-        {
-            return _emails.FindAll().ToList();
         }
     }
 }
