@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderInterface", "Ema
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmailSender", "FluentEmailSender\FluentEmailSender.csproj", "{4EAE9A29-0549-49FF-9FD9-F1505F40AB7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingLogic", "MessagingLogic\MessagingLogic.csproj", "{6E8850B5-0B99-446E-B36C-B456DB462B72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{4EAE9A29-0549-49FF-9FD9-F1505F40AB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EAE9A29-0549-49FF-9FD9-F1505F40AB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EAE9A29-0549-49FF-9FD9-F1505F40AB7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E8850B5-0B99-446E-B36C-B456DB462B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8850B5-0B99-446E-B36C-B456DB462B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8850B5-0B99-446E-B36C-B456DB462B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E8850B5-0B99-446E-B36C-B456DB462B72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

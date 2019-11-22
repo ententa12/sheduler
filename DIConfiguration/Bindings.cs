@@ -5,6 +5,8 @@ using EmailSenderInterface;
 using FluentEmailSender;
 using MailDatabase;
 using MailDatabaseInterface;
+using MediatR.Ninject;
+using Ninject;
 using Ninject.Modules;
 using NLog;
 

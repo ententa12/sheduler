@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="CsvHelper" Version="12.1.2" />
+        <PackageReference Include="MediatR" Version="6.0.0" />
         <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
     </ItemGroup>
 
