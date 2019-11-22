@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using CSVReaderInterface;
 using DIConfiguration;
 using EmailSenderInterface;
 using MailDatabaseInterface;
+using MediatR;
+using MediatR.Ninject;
 using Ninject;
 using NLog;
 using Quartz;
@@ -16,7 +17,7 @@ namespace SchedulerLogic
         private readonly ILogger _logger;
         private readonly IDatabaseContext<EmailPerson> _context;
         private readonly IEmailSender<EmailPerson> _emailSender;
-        private readonly IDataReader<EmailPerson> _csvReader;
+        private readonly IMediator _mediator;
 
         public SendMailJob()
         {
@@ -24,7 +25,7 @@ namespace SchedulerLogic
             _logger = kernel.Get<ILogger>();
             _context = kernel.Get<IDatabaseContext<EmailPerson>>();
             _emailSender = kernel.Get<IEmailSender<EmailPerson>>();
-            _csvReader = kernel.Get<IDataReader<EmailPerson>>();
+            _mediator = kernel.BindMediatR().Get<IMediator>();
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -32,7 +33,7 @@ namespace SchedulerLogic
             var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
             var toSkip = _context.LastIndex();
             _logger.Info("Last index: " + toSkip);
-            var emails = _csvReader.ReadFile("EmailList.csv", countMailsToSend, toSkip);
+            var emails = _mediator.Send(new ReadCsvRequest("EmailList.csv", countMailsToSend, toSkip)).Result;
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>

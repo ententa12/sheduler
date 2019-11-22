@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using EmailSenderInterface;
@@ -46,8 +45,7 @@ namespace EmailSenderLogic
                     var message = new MailMessage(_sender, recipients)
                     {
                         Subject = emailPerson.Title,
-                        BodyText = "Witaj " + emailPerson.FirstName + " " + emailPerson.LastName + "!"
-                                   + "\n" + emailPerson.Message
+                        BodyText = $"Witaj {emailPerson.FirstName} {emailPerson.LastName}!\n{emailPerson.Message}"
                     };
 
                     smtp.SendMessage(message);

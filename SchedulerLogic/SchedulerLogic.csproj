@@ -16,6 +16,7 @@
         <ProjectReference Include="..\EmailSender\EmailSender.csproj" />
         <ProjectReference Include="..\MailDatabaseInterface\MailDatabaseInterface.csproj" />
         <ProjectReference Include="..\MailDatabase\MailDatabase.csproj" />
+        <ProjectReference Include="..\MessagingLogic\MessagingLogic.csproj" />
     </ItemGroup>
 
 </Project>
