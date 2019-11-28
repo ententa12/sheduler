@@ -33,7 +33,7 @@ namespace SchedulerLogic
             var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
             var toSkip = _context.LastIndex();
             _logger.Info("Last index: " + toSkip);
-            var emails = _mediator.Send(new ReadCsvRequest("EmailList.csv", countMailsToSend, toSkip)).Result;
+            var emails = await _mediator.Send(new ReadCsvRequest("EmailList.csv", countMailsToSend, toSkip));
             var sendMails = emails
                 .Where(e => !_context.CheckIfExist(e))
                 .Select(e =>
