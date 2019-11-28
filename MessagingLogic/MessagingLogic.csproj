@@ -6,11 +6,13 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CSVEmailModel\CSVEmailModel.csproj" />
       <ProjectReference Include="..\CSVReaderLogic\CSVReaderLogic.csproj" />
+      <ProjectReference Include="..\DIConfiguration\DIConfiguration.csproj" />
     </ItemGroup>
 
 </Project>

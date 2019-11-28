@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DIConfiguration;
+using Microsoft.Extensions.DependencyInjection;
 using Ninject;
 using NLog;
 using Quartz;
@@ -16,8 +17,8 @@ namespace SchedulerLogic
 
         public SchedulerSendMail()
         {
-            var kernel = new StandardKernel(new Bindings());
-            _logger = kernel.Get<ILogger>();
+            var serviceProvider = new Bindings().GetServicesCollection();
+            _logger = serviceProvider.GetService<ILogger>();
         }
 
         public async Task SendEmails()

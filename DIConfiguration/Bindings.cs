@@ -5,21 +5,23 @@ using EmailSenderInterface;
 using FluentEmailSender;
 using MailDatabase;
 using MailDatabaseInterface;
-using MediatR.Ninject;
-using Ninject;
-using Ninject.Modules;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace DIConfiguration
 {
-    public class Bindings : NinjectModule
+    public class Bindings
     {
-        public override void Load()
+        public ServiceProvider GetServicesCollection()
         {
-            Bind<IDataReader<EmailPerson>>().To<CsvEmailReader<EmailPerson>>();
-            Bind<IDatabaseContext<EmailPerson>>().To<DatabaseLogic>();
-            Bind<IEmailSender<EmailPerson>>().To<FluentSender>();
-            Bind<ILogger>().ToMethod((p) => LogManager.GetLogger("fileLogger"));
+            return new ServiceCollection()
+                .AddMediatR()
+                .AddScoped<IDataReader<EmailPerson>, CsvEmailReader<EmailPerson>>()
+                .AddScoped<IDatabaseContext<EmailPerson>, DatabaseLogic>()
+                .AddScoped<IEmailSender<EmailPerson>, FluentSender>()
+                .AddSingleton<ILogger>((p) => LogManager.GetLogger("fileLogger"))
+                .BuildServiceProvider();
         }
     }
 }

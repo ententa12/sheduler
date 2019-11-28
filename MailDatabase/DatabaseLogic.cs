@@ -16,10 +16,13 @@ namespace MailDatabase
             _emails = _db.GetCollection<EmailPerson>();
         }
 
-        public void Save(EmailPerson obj)
+        public Task Save(EmailPerson obj)
         {
-            _emails.Insert(obj);
-            _db.Commit();
+            return new Task(() =>
+            {
+                _emails.Insert(obj);
+                _db.Commit();
+            });
         }
 
         public bool CheckIfExist(EmailPerson obj)
