@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using CSVEmailModel;
 using LiteDB;
 using MailDatabaseInterface;
@@ -17,6 +19,15 @@ namespace MailDatabase
         }
 
         public Task Save(EmailPerson obj)
+        {
+            return new Task(() =>
+            {
+                _emails.Insert(obj);
+                _db.Commit();
+            });
+        }
+
+        public Task SaveAll(IEnumerable<EmailPerson> obj)
         {
             return new Task(() =>
             {

@@ -3,16 +3,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
 using MediatR;
+using MessagingLogic;
+using RawRabbit;
 using SchedulerLogic;
 
 namespace CSVReaderLogic
 {
-    public class ReadCsvHandler : IRequestHandler<ReadCsvRequest, List<EmailPerson>>
+    public class ReadCsvHandler : IHandler<ReadCsvRequest>
     {
-        public Task<List<EmailPerson>> Handle(ReadCsvRequest request, CancellationToken cancellationToken)
+        private readonly IBusClient _client;
+        public ReadCsvHandler(IBusClient client)
         {
-            var res = new CsvEmailReader<EmailPerson>().ReadFile(request.Path, request.Count, request.ToSkip);
-            return Task.FromResult(res);
+            _client = client;
+        }
+
+        public Task HandleAsync(ReadCsvRequest message, CancellationToken token)
+        {
+            var res = new CsvEmailReader<EmailPerson>().ReadFile(message.Path, message.Count, message.ToSkip);
+            _client.PublishAsync(new EmailsToSend(res));
+            return Task.CompletedTask;
         }
     }
 }

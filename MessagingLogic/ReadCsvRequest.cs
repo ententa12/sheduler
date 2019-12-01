@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using CSVEmailModel;
 using MediatR;
+using MessagingLogic;
 
 namespace SchedulerLogic
 {
-    public class ReadCsvRequest : IRequest<List<EmailPerson>>
+    public class ReadCsvRequest : IMessage
     {
         public int ToSkip { get; }
         public int Count { get; }

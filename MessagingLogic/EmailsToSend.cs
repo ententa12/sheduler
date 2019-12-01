@@ -5,10 +5,10 @@ using MediatR;
 
 namespace MessagingLogic
 {
-    public class SendMailRequest : IRequest<Task>
+    public class EmailsToSend : IMessage
     {
-        public EmailPerson EmailPersonToSend { get; }
-        public SendMailRequest(EmailPerson emailPerson)
+        public List<EmailPerson> EmailPersonToSend { get; }
+        public EmailsToSend(List<EmailPerson> emailPerson)
         {
             EmailPersonToSend = emailPerson;
         }

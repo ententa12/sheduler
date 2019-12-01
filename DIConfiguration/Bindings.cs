@@ -1,4 +1,5 @@
-﻿using CSVEmailModel;
+﻿using System.Configuration;
+using CSVEmailModel;
 using CSVReaderInterface;
 using CSVReaderLogic;
 using EmailSenderInterface;
@@ -6,8 +7,12 @@ using FluentEmailSender;
 using MailDatabase;
 using MailDatabaseInterface;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
+using RawRabbit;
+using RawRabbit.Configuration;
+using RawRabbit.vNext;
 
 namespace DIConfiguration
 {
@@ -15,8 +20,11 @@ namespace DIConfiguration
     {
         public ServiceProvider GetServicesCollection()
         {
+            var options = new RawRabbitConfiguration();
+            ((IConfigurationSection)ConfigurationManager.GetSection("rabbitmq")).Bind(options);
+            var client = BusClientFactory.CreateDefault(options);
             return new ServiceCollection()
-                .AddMediatR()
+                .AddSingleton<IBusClient>(_ => client)
                 .AddScoped<IDataReader<EmailPerson>, CsvEmailReader<EmailPerson>>()
                 .AddScoped<IDatabaseContext<EmailPerson>, DatabaseLogic>()
                 .AddScoped<IEmailSender<EmailPerson>, FluentSender>()

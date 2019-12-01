@@ -8,12 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingLogic
 {
-    public class SaveInDatabaseHandler : INotificationHandler<SaveInDatabaseRequest>
+    public class SaveInDatabaseHandler : IHandler<EmailsToSend>
     {
-        public async Task Handle(SaveInDatabaseRequest notification, CancellationToken cancellationToken)
+        public async Task HandleAsync(EmailsToSend message, CancellationToken token)
         {
             var serviceProvider = new Bindings().GetServicesCollection();
-            await serviceProvider.GetService<IDatabaseContext<EmailPerson>>().Save(notification.EmailPersonToSend);
+            await serviceProvider.GetService<IDatabaseContext<EmailPerson>>().SaveAll(message.EmailPersonToSend);
         }
     }
 }
