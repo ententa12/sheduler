@@ -6,7 +6,6 @@ using EmailSenderInterface;
 using FluentEmailSender;
 using MailDatabase;
 using MailDatabaseInterface;
-using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
@@ -21,7 +20,10 @@ namespace DIConfiguration
         public ServiceProvider GetServicesCollection()
         {
             var options = new RawRabbitConfiguration();
-            ((IConfigurationSection)ConfigurationManager.GetSection("rabbitmq")).Bind(options);
+            IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+            config.GetSection("rabbitmq").Bind(options);
             var client = BusClientFactory.CreateDefault(options);
             return new ServiceCollection()
                 .AddSingleton<IBusClient>(_ => client)

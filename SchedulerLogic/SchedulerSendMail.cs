@@ -35,7 +35,12 @@ namespace SchedulerLogic
                         .WithIntervalInMinutes(1)
                         .RepeatForever())
                     .Build();
+                var trigger2 = TriggerBuilder
+                    .Create()
+                    .StartNow()
+                    .Build();
                 await scheduler.Start();
+                await scheduler.ScheduleJob(CreateJobHandler(), trigger2);
                 await scheduler.ScheduleJob(CreateJobWithMail(ToSendInInterval), trigger);
             }
             catch (SchedulerException se)
@@ -50,6 +55,14 @@ namespace SchedulerLogic
             return JobBuilder.Create<SendMailJob>()
                 .WithIdentity(Guid.NewGuid().ToString())
                 .SetJobData(new JobDataMap(new Dictionary<string, int>() {{"sendCount", sendCount}}))
+                .Build();
+        }
+        
+        private IJobDetail CreateJobHandler()
+        {
+            _logger.Info("In Job Handler");
+            return JobBuilder
+                .Create<HandlerJob>()
                 .Build();
         }
     }

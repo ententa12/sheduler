@@ -8,6 +8,7 @@
         <PackageReference Include="MediatR" Version="6.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
         <PackageReference Include="MediatR.Ninject" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0-preview3.19553.2" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
         <PackageReference Include="NLog" Version="4.6.7" />
         <PackageReference Include="NLog.Config" Version="4.6.7" />
