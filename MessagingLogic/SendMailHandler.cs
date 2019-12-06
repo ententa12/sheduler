@@ -12,9 +12,9 @@ using NLog;
 
 namespace MessagingLogic
 {
-    public class SendMailHandler : IHandler<EmailsToSend>
+    public class SendMailHandler : IHandler<EmailsToSendRequest>
     {
-        public async Task HandleAsync(EmailsToSend message, CancellationToken token)
+        public async Task HandleAsync(EmailsToSendRequest message, CancellationToken token)
         {
             var serviceProvider = new Bindings().GetServicesCollection();
             

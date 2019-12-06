@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using CSVEmailModel;
-using MediatR;
-using MessagingLogic;
+﻿using MessagingLogic;
 
 namespace SchedulerLogic
 {

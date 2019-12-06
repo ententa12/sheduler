@@ -13,6 +13,7 @@
         <PackageReference Include="NLog" Version="4.6.7" />
         <PackageReference Include="NLog.Config" Version="4.6.7" />
         <PackageReference Include="RawRabbit" Version="1.10.4" />
+        <PackageReference Include="RawRabbit.Attributes" Version="1.10.4" />
         <PackageReference Include="RawRabbit.vNext" Version="1.10.4" />
     </ItemGroup>
 
