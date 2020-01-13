@@ -2,11 +2,17 @@
 
 namespace WindowsService
 {
-    class ShedulerService
+    public class ShedulerService
     {
+        private SchedulerSendMail _sendMail;
+        public ShedulerService(SchedulerSendMail sendMail)
+        {
+            _sendMail = sendMail;
+        }
+
         public void Start()
         {
-            new SchedulerSendMail().SendEmails().GetAwaiter().GetResult();
+            _sendMail.SendEmails().GetAwaiter().GetResult();
         }
 
         public void Stop()

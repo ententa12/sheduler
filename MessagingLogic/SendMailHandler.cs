@@ -1,20 +1,22 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using DIConfiguration;
 using EmailSenderInterface;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingLogic
 {
     public class SendMailHandler : IRequestHandler<SendMailRequest, Task>
     {
+        private IEmailSender<EmailPerson> _emailSender;
+        public SendMailHandler(IEmailSender<EmailPerson> emailSender)
+        {
+            _emailSender = emailSender;
+        }
+
         public Task<Task> Handle(SendMailRequest request, CancellationToken cancellationToken)
         {
-            var serviceProvider = new Bindings().GetServicesCollection();
-            return Task.FromResult(serviceProvider.GetService<IEmailSender<EmailPerson>>().SendEmail(request.EmailPersonToSend));
+            return Task.FromResult(_emailSender.SendEmail(request.EmailPersonToSend));
         }
     }
 }

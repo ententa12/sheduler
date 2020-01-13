@@ -1,31 +1,24 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using DIConfiguration;
-using EmailSenderInterface;
 using MailDatabaseInterface;
 using MediatR;
-using MediatR.Ninject;
 using MessagingLogic;
-using Microsoft.Extensions.DependencyInjection;
-using Ninject;
 using NLog;
 using Quartz;
 
 namespace SchedulerLogic
 {
-    class SendMailJob : IJob
+    public class SendMailJob : IJob
     {
         private readonly ILogger _logger;
         private readonly IDatabaseContext<EmailPerson> _context;
         private readonly IMediator _mediator;
-
-        public SendMailJob()
+        public SendMailJob(ILogger logger, IDatabaseContext<EmailPerson> context, IMediator mediator)
         {
-            var serviceProvider = new Bindings().GetServicesCollection();
-            _logger = serviceProvider.GetService<ILogger>();
-            _context = serviceProvider.GetService<IDatabaseContext<EmailPerson>>();
-            _mediator = serviceProvider.GetService<IMediator>();
+            _logger = logger;
+            _context = context;
+            _mediator = mediator;
         }
 
         public async Task Execute(IJobExecutionContext context)

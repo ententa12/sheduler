@@ -13,11 +13,11 @@ namespace EmailSenderLogic
     {
         private readonly ILogger _logger;
 
-        public EmailSender()
+        public EmailSender(ILogger logger)
         {
             var c = ConfigurationManager.AppSettings;
             ComponentInfo.SetLicense(ConfigurationManager.AppSettings["license"]);
-            _logger = LogManager.GetLogger("fileLogger");
+            _logger = logger;
         }
 
         private readonly string _host = ConfigurationManager.AppSettings["host"];

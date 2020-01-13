@@ -1,19 +1,21 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using DIConfiguration;
 using MailDatabaseInterface;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingLogic
 {
     public class SaveInDatabaseHandler : INotificationHandler<SaveInDatabaseRequest>
     {
+        private readonly IDatabaseContext<EmailPerson> _context;
+        public SaveInDatabaseHandler(IDatabaseContext<EmailPerson> context)
+        {
+            _context = context;
+        }
         public async Task Handle(SaveInDatabaseRequest notification, CancellationToken cancellationToken)
         {
-            var serviceProvider = new Bindings().GetServicesCollection();
-            await serviceProvider.GetService<IDatabaseContext<EmailPerson>>().Save(notification.EmailPersonToSend);
+            await _context.Save(notification.EmailPersonToSend);
         }
     }
 }
