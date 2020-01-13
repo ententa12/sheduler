@@ -1,29 +1,34 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using DIConfiguration;
 using EmailSenderInterface;
 using MailDatabaseInterface;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace MessagingLogic
 {
     public class SendMailHandler : IHandler<EmailsToSendRequest>
     {
+        private readonly IDatabaseContext<EmailPerson> _database;
+        private readonly ILogger _logger;
+        private readonly IEmailSender<EmailPerson> _emailSender;
+
+        public SendMailHandler(IDatabaseContext<EmailPerson> database, ILogger logger, IEmailSender<EmailPerson> emailSender)
+        {
+            _database = database;
+            _logger = logger;
+            _emailSender = emailSender;
+        }
+
         public async Task HandleAsync(EmailsToSendRequest message, CancellationToken token)
         {
-            var serviceProvider = new Bindings().GetServicesCollection();
-            
             var sendMails = message.EmailPersonToSend
-                .Where(e => !serviceProvider.GetService<IDatabaseContext<EmailPerson>>().CheckIfExist(e))
+                .Where(e => !_database.CheckIfExist(e))
                 .Select(e =>
                 {
-                    serviceProvider.GetService<ILogger>().Debug("Save item in database with id: {0}", e.Id);
-                    return serviceProvider.GetService<IEmailSender<EmailPerson>>().SendEmail(e);
+                    _logger.Debug("Save item in database with id: {0}", e.Id);
+                    return _emailSender.SendEmail(e);
                 });
             await Task.WhenAll(sendMails);
         }

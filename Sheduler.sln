@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDatabase", "MailDatabas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDatabaseInterface", "MailDatabaseInterface\MailDatabaseInterface.csproj", "{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIConfiguration", "DIConfiguration\DIConfiguration.csproj", "{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderInterface", "EmailSenderInterface\EmailSenderInterface.csproj", "{ACDE212E-9DBB-450A-B743-F91A91107B80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmailSender", "FluentEmailSender\FluentEmailSender.csproj", "{4EAE9A29-0549-49FF-9FD9-F1505F40AB7B}"
@@ -71,10 +69,6 @@ Global
 		{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6AF6765-FDA8-4AB1-BA78-4CA876DC4A3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B2C6F14-FE77-46B9-9B1B-B7462374D4D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACDE212E-9DBB-450A-B743-F91A91107B80}.Release|Any CPU.ActiveCfg = Release|Any CPU

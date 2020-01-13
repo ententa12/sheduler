@@ -15,9 +15,9 @@ namespace FluentEmailSender
     {
         private readonly ILogger _logger;
 
-        public FluentSender()
+        public FluentSender(ILogger logger)
         {
-            _logger = LogManager.GetLogger("fileLogger");
+            _logger = logger;
         }
 
         public async Task SendEmail(EmailPerson emailPerson)

@@ -1,18 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CSVEmailModel;
-using DIConfiguration;
 using MailDatabaseInterface;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingLogic
 {
     public class SaveInDatabaseHandler : IHandler<EmailsToSendRequest>
     {
+        private readonly IDatabaseContext<EmailPerson> _busClient;
+
+        public SaveInDatabaseHandler(IDatabaseContext<EmailPerson> busClient)
+        {
+            _busClient = busClient;
+        }
+
         public async Task HandleAsync(EmailsToSendRequest message, CancellationToken token)
         {
-            var serviceProvider = new Bindings().GetServicesCollection();
-            await serviceProvider.GetService<IDatabaseContext<EmailPerson>>().SaveAll(message.EmailPersonToSend);
+            await _busClient.SaveAll(message.EmailPersonToSend);
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DIConfiguration;
-using Microsoft.Extensions.DependencyInjection;
-using Ninject;
 using NLog;
 using Quartz;
 using Quartz.Impl;
@@ -13,12 +10,12 @@ namespace SchedulerLogic
     public class SchedulerSendMail
     {
         private readonly ILogger _logger;
+        private readonly SendJobFactory _sendMailFactory;
         private const int ToSendInInterval = 100;
-
-        public SchedulerSendMail()
+        public SchedulerSendMail(ILogger logger, SendJobFactory sendMailFactory)
         {
-            var serviceProvider = new Bindings().GetServicesCollection();
-            _logger = serviceProvider.GetService<ILogger>();
+            _logger = logger;
+            _sendMailFactory = sendMailFactory;
         }
 
         public async Task SendEmails()
@@ -27,12 +24,13 @@ namespace SchedulerLogic
             {
                 var factory = new StdSchedulerFactory();
                 var scheduler = await factory.GetScheduler();
+                scheduler.JobFactory = _sendMailFactory;
                 var trigger = TriggerBuilder
                     .Create()
                     .WithIdentity(Guid.NewGuid().ToString())
                     .StartNow()
-                    .WithSimpleSchedule(x => x.WithIntervalInSeconds(1)
-//                        .WithIntervalInMinutes(1)
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInMinutes(1)
                         .RepeatForever())
                     .Build();
                 await scheduler.Start();
