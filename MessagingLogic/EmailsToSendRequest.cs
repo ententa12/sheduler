@@ -5,7 +5,7 @@ namespace MessagingLogic
 {
     public class EmailsToSendRequest : IMessage
     {
-        public List<EmailPerson> EmailPersonToSend { get; }
+        public List<EmailPerson> EmailPersonToSend { get; set; }
         public EmailsToSendRequest(List<EmailPerson> emailPerson)
         {
             EmailPersonToSend = emailPerson;

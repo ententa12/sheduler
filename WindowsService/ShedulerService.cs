@@ -8,11 +8,11 @@ namespace WindowsService
 {
     public class ShedulerService
     {
-        private SchedulerSendMail _sendMail;
-        private IBusClient _busClient;
-        private ReadCsvHandler _readCsvHandler;
-        private SaveInDatabaseHandler _saveInDatabaseHandler;
-        private SendMailHandler _sendMailHandler;
+        private readonly SchedulerSendMail _sendMail;
+        private readonly IBusClient _busClient;
+        private readonly ReadCsvHandler _readCsvHandler;
+        private readonly SaveInDatabaseHandler _saveInDatabaseHandler;
+        private readonly SendMailHandler _sendMailHandler;
         public ShedulerService(SchedulerSendMail sendMail, IBusClient busClient, ReadCsvHandler readCsvHandler,
             SaveInDatabaseHandler saveInDatabaseHandler, SendMailHandler sendMailHandler)
         {
@@ -36,7 +36,7 @@ namespace WindowsService
             {
                 await _sendMailHandler.HandleAsync(msg, CancellationToken.None);
             });
-            _sendMail.SendEmails().GetAwaiter().GetResult();
+            _sendMail.SendEmails().Start();
         }
 
         public void Stop()

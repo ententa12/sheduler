@@ -25,7 +25,7 @@ namespace SchedulerLogic
             var countMailsToSend = (int) context.JobDetail.JobDataMap.Get("sendCount");
             var toSkip = _context.LastIndex();
             _logger.Info("Last index: {0}", toSkip);
-            await _client.PublishAsync(new ReadCsvRequest("EmailList.csv", countMailsToSend, toSkip));
+            await _client.PublishAsync(new ReadCsvRequest("EmailList.csv", toSkip, countMailsToSend));
         }
     }
 }
