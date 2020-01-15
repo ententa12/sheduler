@@ -1,9 +1,9 @@
 ﻿using CSVEmailModel;
 using MailDatabaseInterface;
+using MessagingLogic;
 using NLog;
 using Quartz;
 using Quartz.Spi;
-using RawRabbit;
 
 namespace SchedulerLogic
 {
@@ -11,18 +11,16 @@ namespace SchedulerLogic
     {
         private readonly ILogger _logger;
         private readonly IDatabaseContext<EmailPerson> _context;
-        private readonly IBusClient _client;
 
-        public SendJobFactory(ILogger logger, IDatabaseContext<EmailPerson> context, IBusClient client)
+        public SendJobFactory(ILogger logger, IDatabaseContext<EmailPerson> context)
         {
             _logger = logger;
             _context = context;
-            _client = client;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new SendMailJob(_logger, _context, _client);
+            return new SendMailJob(_logger, _context);
         }
 
         public void ReturnJob(IJob job)

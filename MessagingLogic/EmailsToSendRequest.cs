@@ -3,7 +3,7 @@ using CSVEmailModel;
 
 namespace MessagingLogic
 {
-    public class EmailsToSendRequest : IMessage
+    public class EmailsToSendRequest
     {
         public List<EmailPerson> EmailPersonToSend { get; set; }
         public EmailsToSendRequest(List<EmailPerson> emailPerson)

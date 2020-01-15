@@ -1,8 +1,6 @@
-﻿using MessagingLogic;
-
-namespace SchedulerLogic
+﻿namespace SchedulerLogic
 {
-    public class ReadCsvRequest : IMessage
+    public class ReadCsvRequest
     {
         public int ToSkip { get; }
         public int Count { get; }
