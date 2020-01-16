@@ -23,7 +23,10 @@ namespace CSVReaderLogic
         {
             _logger.Info("Path {0}, C {1}, TS {2}", message.Path, message.Count, message.ToSkip);
             var res = new CsvEmailReader<EmailPerson>().ReadFile(message.Path, message.Count, message.ToSkip);
-            await _busClient.PublishAsync(new EmailsToSendRequest(res));
+            foreach (var emailPerson in res)
+            {
+                await _busClient.PublishAsync(new EmailsToSendRequest(emailPerson));
+            }
         }
     }
 }

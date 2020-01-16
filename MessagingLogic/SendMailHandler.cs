@@ -23,14 +23,12 @@ namespace MessagingLogic
 
         public async Task HandleAsync(EmailsToSendRequest message, CancellationToken token)
         {
-            var sendMails = message.EmailPersonToSend
-                .Where(e => !_database.CheckIfExist(e))
-                .Select(e =>
-                {
-                    _logger.Debug("Save item in database with id: {0}", e.Id);
-                    return _emailSender.SendEmail(e);
-                });
-            await Task.WhenAll(sendMails);
+            var emailPerson = message.EmailPersonToSend;
+            if (!_database.CheckIfExist(emailPerson))
+            {
+                _logger.Debug("Send email to person with id: {0}", emailPerson.Id);
+                await _emailSender.SendEmail(emailPerson);
+            }
         }
     }
 }

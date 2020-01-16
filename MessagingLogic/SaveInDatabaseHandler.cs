@@ -16,7 +16,7 @@ namespace MessagingLogic
 
         public async Task HandleAsync(EmailsToSendRequest message, CancellationToken token)
         {
-            await _busClient.SaveAll(message.EmailPersonToSend);
+            await _busClient.Save(message.EmailPersonToSend);
         }
     }
 }
